@@ -21,7 +21,7 @@
 #SBATCH --job-name=GRU4Rec-batch  # Specify the name of this job.
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=tk2637@nyu.edu
-#SBATCH --output=logs/%x.%j.out
+#SBATCH --output=%x.%j.out
 
 ###############################################
 # Module information to use
