@@ -35,7 +35,7 @@ class Trainer(object):
 
             print("Epoch: {}, train loss: {:.4f}, loss: {:.4f}, recall: {:.4f}, mrr: {:.4f}, time: {}".format(epoch, train_loss, loss, recall, mrr, time.time() - st))
             checkpoint = {
-                'model': self.model,
+                'model': self.model.state_dict(),
                 'args': self.args,
                 'epoch': epoch,
                 'optim': self.optim,
@@ -45,6 +45,7 @@ class Trainer(object):
             }
             model_name = os.path.join(self.args.checkpoint_dir, "model_{0:05d}.pt".format(epoch))
             torch.save(checkpoint, model_name)
+            wandb.save(model_name)
             print("Save model as %s" % model_name)
 
 
