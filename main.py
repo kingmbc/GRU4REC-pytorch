@@ -33,7 +33,7 @@ parser.add_argument('--loss_type', default='TOP1-max', type=str) #type of loss f
 parser.add_argument('--time_sort', default=False, type=bool) #In case items are not sorted by time stamp
 parser.add_argument('--model_name', default='GRU4REC-CrossEntropy', type=str)
 parser.add_argument('--save_dir', default='models', type=str)
-parser.add_argument('--data_folder', default='../Dataset/RecSys_Dataset_After/', type=str)
+parser.add_argument('--data_folder', default='../_data/yoochoose-prep', type=str)
 parser.add_argument('--train_data', default='recSys15TrainOnly.txt', type=str)
 parser.add_argument('--valid_data', default='recSys15Valid.txt', type=str)
 parser.add_argument("--is_eval", action='store_true') #should be used during testing and eliminated during training

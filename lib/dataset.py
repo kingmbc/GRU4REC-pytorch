@@ -4,7 +4,7 @@ import torch
 
 
 class Dataset(object):
-    def __init__(self, path, sep=',', session_key='SessionID', item_key='ItemID', time_key='Time', n_sample=-1, itemmap=None, itemstamp=None, time_sort=False):
+    def __init__(self, path, sep=',', session_key='sessionid', item_key='itemid', time_key='timestamp', n_sample=-1, itemmap=None, itemstamp=None, time_sort=False):
         # Read csv
         self.df = pd.read_csv(path, sep=sep, dtype={session_key: int, item_key: int, time_key: float})
         self.session_key = session_key
