@@ -5,6 +5,8 @@ import numpy as np
 import os
 import datetime
 
+import wandb
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--hidden_size', default=100, type=int) #Literature uses 100 / 1000 --> better is 100
 parser.add_argument('--num_layers', default=3, type=int) #1 hidden layer
@@ -31,7 +33,7 @@ parser.add_argument("--embedding_dim", type=int, default=-1, help="using embeddi
 parser.add_argument('--loss_type', default='TOP1-max', type=str) #type of loss function TOP1 / BPR / TOP1-max / BPR-max
 # etc
 parser.add_argument('--time_sort', default=False, type=bool) #In case items are not sorted by time stamp
-parser.add_argument('--model_name', default='GRU4REC-CrossEntropy', type=str)
+parser.add_argument('--model_name', default='GRU4REC', type=str)
 parser.add_argument('--save_dir', default='models', type=str)
 parser.add_argument('--data_folder', default='../_data/yoochoose-prep', type=str)
 parser.add_argument('--train_data', default='recSys15TrainOnly.txt', type=str)
@@ -50,6 +52,12 @@ torch.manual_seed(args.seed)
 
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
+args.hostname = os.popen('hostname').read().split('.')[0]
+
+wandb.init(project="GRU4Rec Project",
+           name=args.model_name+'-'+args.data_folder.split('/')[2]+'-'+args.loss_type)
+config = wandb.config
+
 
 #Write Checkpoints with arguments used in a text file for reproducibility
 def make_checkpoint_dir():
@@ -119,6 +127,7 @@ def main():
                             dropout_input=dropout_input, dropout_hidden=dropout_hidden, embedding_dim=embedding_dim)
         #weights initialization
         init_model(model)
+        wandb.watch(model, log="all")
         #optimizer
         optimizer = lib.Optimizer(model.parameters(), optimizer_type=optimizer_type, lr=lr,
                                   weight_decay=weight_decay, momentum=momentum, eps=eps)

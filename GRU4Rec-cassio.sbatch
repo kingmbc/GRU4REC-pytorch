@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# 실행 파라미터 출력
+
+###############################################
+# Batch job information
+###############################################
+#SBATCH --nodes=1
+##SBATCH --ntasks-per-node=2
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=32GB
+##SBATCH --mem-per-cpu=64GB
+#SBATCH --time=24:00:00  # Default: one-hour 01:00:00
+
+# GPU resources to request
+# - Format: "gpu:{NUM_GPUS}" or "gpu:{GPU_TYPE}:{NUM_GPUS}" (if you want to specify a gpu type)
+# - Available GPU types: p1080, k80, p40, p100, v100
+# - e.g., #SBATCH --gres=gpu:p100:2
+#SBATCH --gres=gpu:1
+#SBATCH --exclude=hpc[1-9],vine4,vine[11-12]
+##SBATCH --nodelist=lion[1-26]
+##SBATCH --exclude=rose4,vine[3-14]
+
+#SBATCH --job-name=GRU4Rec-batch  # Specify the name of this job.
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=tk2637@nyu.edu
+#SBATCH --output=logs/%x.%j.out
+
+###############################################
+# Module information to use
+###############################################
+module purge
+module load cuda-10.1
+
+unset XDG_RUNTIME_DIR
+if [ "$SLURM_JOBTMP" != "" ]; then
+    export XDG_RUNTIME_DIR=$SLURM_JOBTMP
+fi
+
+##########################################################
+# From here you can write your own commands to run.
+# e.g.
+#   python train.py
+##########################################################
+source activate pytorch
+cd /misc/vlgscratch4/ChoGroup/tk2637/workspace/Recsys_Practice/GRU4REC-pytorch
+
+python main.py

@@ -4,7 +4,7 @@ import time
 import torch
 import numpy as np
 from tqdm import tqdm
-
+import wandb
 
 class Trainer(object):
     def __init__(self, model, train_data, eval_data, optim, use_cuda, loss_func, batch_size, args):
@@ -29,7 +29,9 @@ class Trainer(object):
             print('Start Epoch #', epoch)
             train_loss = self.train_epoch(epoch)
             loss, recall, mrr = self.evaluation.eval(self.eval_data, self.batch_size)
-
+            wandb.log({'epoch': epoch, 'train_loss': train_loss,
+                       'valid_loss': loss, 'valid_recall': recall, 'valid_mrr': mrr,
+                       'time': time.time() - st})
 
             print("Epoch: {}, train loss: {:.4f}, loss: {:.4f}, recall: {:.4f}, mrr: {:.4f}, time: {}".format(epoch, train_loss, loss, recall, mrr, time.time() - st))
             checkpoint = {
