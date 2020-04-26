@@ -7,7 +7,6 @@
 
 # How to kill
 #
-#squeue -u tk2637 -n TimeRec-batch
 
 model=$1
 dataset=$2
@@ -25,9 +24,9 @@ if [ $# == 0 ]; then
   exit 2
 fi
 
-if [ ${model} == "GRU4Rec" ] && [ ${dataset} == "yoochoose" ]; then
+if [ ${dataset} == "yoochoose" ]; then
   python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${yoochoose_path}
-elif [ ${model} == "GRU4Rec" ] && [ ${dataset} == "retailrocket" ]; then
+elif [ ${dataset} == "retailrocket" ]; then
   python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${retailrocket_path}
 
 else
