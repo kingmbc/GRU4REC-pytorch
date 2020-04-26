@@ -21,7 +21,7 @@
 ##SBATCH --nodelist=lion[1-26]
 ##SBATCH --exclude=rose4,vine[3-14]
 
-#SBATCH --job-name=SR-GNN-batch  # Specify the name of this job.
+#SBATCH --job-name=GRU4Rec-batch  # Specify the name of this job.
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=tk2637@nyu.edu
 #SBATCH --output=%x.%j.out

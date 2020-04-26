@@ -18,7 +18,7 @@
 # - e.g., #SBATCH --gres=gpu:p100:2
 #SBATCH --gres=gpu:1
 
-#SBATCH --job-name=SR-GNN-batch  # Specify the name of this job.
+#SBATCH --job-name=GRU4Rec-batch  # Specify the name of this job.
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=tk2637@nyu.edu
 #SBATCH --output=%x.%j.out
