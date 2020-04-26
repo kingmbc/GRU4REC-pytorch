@@ -24,8 +24,8 @@ class Trainer(object):
         else:
             self.start_time = start_time
 
-        self.best_result_ = [0, 0]
-        self.best_epoch_ = [0, 0]
+        self.best_result = [0, 0]
+        self.best_epoch = [0, 0]
         for epoch in range(start_epoch, end_epoch + 1):
             st = time.time()
             print('Start Epoch #', epoch)
