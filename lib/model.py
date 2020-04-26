@@ -58,9 +58,9 @@ class GRU4REC(nn.Module):
             embedded = input.unsqueeze(0)
             embedded = self.look_up(embedded)
 
-        output, hidden = self.gru(embedded, hidden) #(num_layer, B, H)
-        output = output.view(-1, output.size(-1))  #(B,H)
-        logit = self.final_activation(self.h2o(output))
+        output, hidden = self.gru(embedded, hidden) #output=(seq_len, batch_size, input_size), hidden=(num_layer, batch_size, hidden_size)
+        output = output.view(-1, output.size(-1))   #output=(seq_len * batch_size, input_size)
+        logit = self.final_activation(self.h2o(output)) #logit=(seq_len * batch_size, output_size)
 
         return logit, hidden
 

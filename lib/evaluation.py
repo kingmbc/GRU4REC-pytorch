@@ -33,7 +33,7 @@ class Evaluation(object):
                 mrrs.append(mrr)
         mean_losses = np.mean(losses)
         mean_recall = np.mean(recalls)
-        # mean_mrr = np.mean(mrrs)
+        # mean_mrr = np.mean(mrrs), mrrs는 torch.tensor의 list이기 때문에 np.mean에서 에러가 남
         mean_mrr = torch.mean(torch.stack(mrrs))
 
         return mean_losses, mean_recall, mean_mrr

@@ -24,32 +24,53 @@ class Trainer(object):
         else:
             self.start_time = start_time
 
+        self.best_result_ = [0, 0]
+        self.best_epoch_ = [0, 0]
         for epoch in range(start_epoch, end_epoch + 1):
             st = time.time()
             print('Start Epoch #', epoch)
-            train_loss = self.train_epoch(epoch)
-            loss, recall, mrr = self.evaluation.eval(self.eval_data, self.batch_size)
-            wandb.log({'epoch': epoch, 'train_loss': train_loss,
-                       'valid_loss': loss, 'valid_recall': recall, 'valid_mrr': mrr,
-                       'time': time.time() - st})
+            train_loss = self._train_epoch(epoch)
+            valid_loss, valid_recall, valid_mrr = self.evaluation.eval(self.eval_data, self.batch_size)
 
-            print("Epoch: {}, train loss: {:.4f}, loss: {:.4f}, recall: {:.4f}, mrr: {:.4f}, time: {}".format(epoch, train_loss, loss, recall, mrr, time.time() - st))
             checkpoint = {
-                'model': self.model.state_dict(),
+                'state_dict': self.model.state_dict(),
                 'args': self.args,
                 'epoch': epoch,
                 'optim': self.optim,
-                'loss': loss,
-                'recall': recall,
-                'mrr': mrr
+                'valid_loss': valid_loss,
+                'valid_recall': valid_recall,
+                'valid_mrr': valid_mrr
             }
+
             model_name = os.path.join(self.args.checkpoint_dir, "model_{0:05d}.pt".format(epoch))
             torch.save(checkpoint, model_name)
-            wandb.save(model_name)
+            if self.args.wandb_on:
+                wandb.log({'epoch': epoch,
+                           'train_loss': train_loss, 'valid_loss': valid_loss,
+                           'valid_recall': valid_recall, 'valid_mrr': valid_mrr,
+                           'time': time.time() - st})
+                self._log_best_result(epoch, valid_recall, valid_mrr)
+                wandb.save(model_name)
             print("Save model as %s" % model_name)
 
+    def _log_best_result(self, epoch, recall, mrr):
+        if not self.config['wandb_on']:
+            return
 
-    def train_epoch(self, epoch):
+        if recall >= self.best_result[0]:
+            self.best_result[0] = recall
+            self.best_epoch[0] = epoch
+        if mrr >= self.best_result[1]:
+            self.best_result[1] = mrr
+            self.best_epoch[1] = epoch
+
+        wandb.log({"best_recall": self.best_result[0],
+                   "best_mrr": self.best_result[1],
+                   "best_recall_epoch": self.best_epoch[0],
+                   "best_mrr_epoch": self.best_epoch[1]})
+
+
+    def _train_epoch(self, epoch):
         self.model.train()
         losses = []
 
@@ -66,14 +87,17 @@ class Trainer(object):
             input = input.to(self.device)
             target = target.to(self.device)
             self.optim.zero_grad()
-            hidden = reset_hidden(hidden, mask).detach()
+            hidden = reset_hidden(hidden, mask).detach() #hidden=(num_layer, batch_size, hidden_size)
             logit, hidden = self.model(input, hidden)
             # output sampling
-            logit_sampled = logit[:, target.view(-1)]
+            logit_sampled = logit[:, target.view(-1)] #logit_sampled=(batch_size, batch_size)
             loss = self.loss_func(logit_sampled)
             losses.append(loss.item())
             loss.backward()
             self.optim.step()
 
-        mean_losses = np.mean(losses)
+        if isinstance(losses, torch.Tensor):
+            mean_losses = torch.mean(losses)
+        else:
+            mean_losses = np.mean(losses)
         return mean_losses

@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=32GB
+#SBATCH --mem=64GB
 ##SBATCH --mem-per-cpu=64GB
 #SBATCH --time=24:00:00  # Default: one-hour 01:00:00
 
@@ -18,7 +18,7 @@
 # - e.g., #SBATCH --gres=gpu:p100:2
 #SBATCH --gres=gpu:1
 
-#SBATCH --job-name=GRU4Rec-batch  # Specify the name of this job.
+#SBATCH --job-name=SR-GNN-batch  # Specify the name of this job.
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=tk2637@nyu.edu
 #SBATCH --output=%x.%j.out
@@ -40,6 +40,6 @@ fi
 #   python train.py
 ##########################################################
 source activate pytorch
-cd /scratch/tk2637/GRU4REC-pytorch
+cd /scratch/tk2637/SR-GNN/pytorch_code
 
-python main.py
+bash train_script.sh $dataset
