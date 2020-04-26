@@ -42,4 +42,4 @@ fi
 source activate pytorch
 cd /scratch/tk2637/SR-GNN/pytorch_code
 
-bash train_script.sh $dataset
+bash train_script.sh $model $dataset $loss $epoch $batch_size

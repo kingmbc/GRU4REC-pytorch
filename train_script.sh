@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # How to run
-#$ bash train_script.sh simpleGRU yoochoose CrossEntropy 5 50
-#$ bash train_script.sh simpleGRU retailrocket CrossEntropy 5 50
 #$ bash train_script.sh GRU4Rec yoochoose TOP1-max 5 50
 #$ bash train_script.sh GRU4Rec retailrocket TOP1-max 5 50
 
