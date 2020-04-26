@@ -39,7 +39,6 @@ parser.add_argument('--sigma', default=None, type=float,             # weight in
 # Loss arguments
 parser.add_argument('--loss_type', default='TOP1-max', type=str)    # type of loss function TOP1 / BPR / TOP1-max / BPR-max
 # Data arguments
-parser.add_argument('--dataset', default='sample', help='dataset name: diginetica/yoochoose1_4/yoochoose1_64/sample')
 # parser.add_argument('--data_folder', default='../_data/yoochoose-prep/', type=str)
 # parser.add_argument('--train_data', default='yoochoose-train.csv', type=str)
 # parser.add_argument('--valid_data', default='yoochoose-valid.csv', type=str)
