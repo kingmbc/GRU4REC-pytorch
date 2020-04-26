@@ -17,7 +17,7 @@
 # - Available GPU types: p1080, k80, p40, p100, v100
 # - e.g., #SBATCH --gres=gpu:p100:2
 #SBATCH --gres=gpu:1
-#SBATCH --exclude=hpc[1-9],rose4,rose[7-9],vine4,vine[11-12]
+#SBATCH --exclude=hpc[1-9],rose[2-4],rose[7-9],vine4,vine[11-12]
 ##SBATCH --nodelist=lion[1-26]
 ##SBATCH --exclude=rose4,vine[3-14]
 
