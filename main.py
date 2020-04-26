@@ -47,8 +47,7 @@ parser.add_argument('--dataset', default='sample', help='dataset name: diginetic
 parser.add_argument('--data_folder', default='../_data/retailrocket-prep', type=str)
 parser.add_argument('--train_data', default='retailrocket-train.csv.sample', type=str)
 parser.add_argument('--valid_data', default='retailrocket-valid.csv.sample', type=str)
-parser.add_argument('--test_data', default='retailrocket-test.csv.sample', type=str)
-parser.add_argument('--item2idx_dict', default='item_idx_dict_filtered.pkl', type=str)
+parser.add_argument('--item2idx_dict', default=None, type=str)
 # Logging, environment, etc.
 parser.add_argument('--device', type=str, default='cpu')
 parser.add_argument('--resume', type=str, default='')
@@ -117,12 +116,10 @@ def main():
 
     train_data = lib.Dataset(os.path.join(args.data_folder, args.train_data))
     valid_data = lib.Dataset(os.path.join(args.data_folder, args.valid_data), itemmap=train_data.itemmap)
-    test_data = lib.Dataset(os.path.join(args.data_folder, args.test_data), itemmap=train_data.itemmap)
 
     if args.debug:
         train_data.df.to_csv(os.path.join(args.data_folder, 'GRU4Rec-train-data.csv'))
         valid_data.df.to_csv(os.path.join(args.data_folder, 'GRU4Rec-valid-data.csv'))
-        test_data.df.to_csv(os.path.join(args.data_folder, 'GRU4Rec-test-data.csv'))
     make_checkpoint_dir()
         
     #set all the parameters according to the defined arguments
