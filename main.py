@@ -69,6 +69,7 @@ torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
 args.hostname = os.popen('hostname').read().split('.')[0]
+print(args)
 
 def make_checkpoint_dir():
     """ Write Checkpoints with arguments used in a text file for reproducibility
