@@ -26,9 +26,9 @@ if [ $# == 0 ]; then
 fi
 
 if [ ${model} == "GRU4Rec" ] && [ ${dataset} == "yoochoose" ]; then
-  python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${yoochoose_path} > gru4rec-yoochoose-${loss}.out
+  python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${yoochoose_path}
 elif [ ${model} == "GRU4Rec" ] && [ ${dataset} == "retailrocket" ]; then
-  python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${retailrocket_path} > gru4rec-retailrocket-${loss}.out
+  python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${retailrocket_path}
 
 else
     echo "(Error) There is no such model or dataset"
