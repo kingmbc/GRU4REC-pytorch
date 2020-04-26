@@ -40,6 +40,7 @@ fi
 #   python train.py
 ##########################################################
 source activate pytorch
-cd /scratch/tk2637/SR-GNN/pytorch_code
+cd /scratch/tk2637/
+cd GRU4REC-pytorch
 
 bash train_script.sh $model $dataset $loss $epoch $batch_size
