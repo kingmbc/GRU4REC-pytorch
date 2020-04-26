@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 ##SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=64GB
+#SBATCH --mem=32GB
 ##SBATCH --mem-per-cpu=64GB
 #SBATCH --time=24:00:00  # Default: one-hour 01:00:00
 
