@@ -66,7 +66,6 @@ np.random.seed(args.seed)
 torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
-args.hostname = os.popen('hostname').read().split('.')[0]
 print(args)
 
 def make_checkpoint_dir():
@@ -108,6 +107,7 @@ def main():
     if args.wandb_on:
         wandb.init(project=args.wandb_project,
                    name=args.model_name + '-' + args.data_folder.split('/')[2] + '-' + args.loss_type)
+        wandb.config.update({'hostname': os.popen('hostname').read().split('.')[0]})
         wandb.config.update(args)
     if args.item2idx_dict is not None:
         item2idx_dict = pd.read_pickle(os.path.join(args.data_folder, args.item2idx_dict))

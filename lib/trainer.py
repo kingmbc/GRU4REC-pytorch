@@ -64,10 +64,10 @@ class Trainer(object):
             self.best_result[1] = mrr
             self.best_epoch[1] = epoch
 
-        wandb.log({"best_valid_recall": self.best_result[0],
-                   "best_valid_mrr": self.best_result[1],
-                   "best_valid_recall_epoch": self.best_epoch[0],
-                   "best_valid_mrr_epoch": self.best_epoch[1]})
+        wandb.log({"best_recall": self.best_result[0],
+                   "best_mrr": self.best_result[1],
+                   "best_recall_epoch": self.best_epoch[0],
+                   "best_mrr_epoch": self.best_epoch[1]})
 
 
     def _train_epoch(self, epoch):
