@@ -64,7 +64,7 @@ test = removeShortSessions(test)
 #print('Full Training Set has', len(train), 'Events, ', train[session_key'].nunique(), 'Sessions, and', train[item_key].nunique(), 'Items\n\n')
 #train.to_csv(dataAfter + 'recSys15TrainFull.txt', sep='\t', index=False)
 print('Testing Set has', len(test), 'Events, ', test[session_key].nunique(), 'Sessions, and', test[item_key].nunique(), 'Items\n\n')
-test.to_csv(dataAfter + 'recSys15Test.txt', sep=',', index=False)
+test.to_csv(dataAfter + 'yoochoose-test.txt', sep=',', index=False)
 
 ######################################################################################################3
 #Separate Training set into Train and Validation Splits
@@ -80,6 +80,6 @@ trainVD = trainVD[np.in1d(trainVD[item_key], trainTR[item_key])]
 trainVD = removeShortSessions(trainVD)
 #Convert To CSV
 print('Training Set has', len(trainTR), 'Events, ', trainTR[session_key].nunique(), 'Sessions, and', trainTR[item_key].nunique(), 'Items\n\n')
-trainTR.to_csv(dataAfter + 'recSys15TrainOnly.txt', sep=',', index=False)
+trainTR.to_csv(dataAfter + 'yoochoose-train.txt', sep=',', index=False)
 print('Validation Set has', len(trainVD), 'Events, ', trainVD[session_key].nunique(), 'Sessions, and', trainVD[item_key].nunique(), 'Items\n\n')
-trainVD.to_csv(dataAfter + 'recSys15Valid.txt', sep=',', index=False)
+trainVD.to_csv(dataAfter + 'yoochoose-valid.txt', sep=',', index=False)
