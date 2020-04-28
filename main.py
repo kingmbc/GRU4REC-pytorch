@@ -46,7 +46,7 @@ parser.add_argument('--loss_type', default='TOP1-max', type=str)    # type of lo
 parser.add_argument('--data_folder', default='../_data/retailrocket-prep', type=str)
 parser.add_argument('--train_data', default='retailrocket-train.csv.sample', type=str)
 parser.add_argument('--valid_data', default='retailrocket-valid.csv.sample', type=str)
-parser.add_argument('--item2idx_dict', default=None, type=str)
+parser.add_argument('--item2idx_dict', default='item_idx_dict_filtered.pkl', type=str)
 # Logging, environment, etc.
 parser.add_argument('--device', type=str, default='cpu')
 parser.add_argument('--resume', type=str, default='')
