@@ -43,4 +43,4 @@ source activate pytorch
 cd /scratch/tk2637/
 cd GRU4REC-pytorch
 
-bash train_script.sh $model $dataset $loss $epoch $batch_size
+bash train_script.sh $model $dataset $loss $epoch $batch_size $embedding_dim

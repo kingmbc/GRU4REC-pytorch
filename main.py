@@ -18,10 +18,10 @@ parser.add_argument('--wandb_on', default="True", type=str2bool)
 parser.add_argument('--debug', default="False", type=str2bool)
 # Model argument
 parser.add_argument('--model_name', default='GRU4Rec', type=str)
-parser.add_argument('--num_layers', default=3, type=int)        # 1 hidden layer
+parser.add_argument('--num_layers', default=1, type=int)        # 1 hidden layer
 parser.add_argument('--batch_size', default=50, type=int)       # 50 in first paper and 32 in second paper
 parser.add_argument('--hidden_size', default=100, type=int)     # Literature uses 100 / 1000 --> better is 100
-parser.add_argument('--dropout_input', default=0, type=float)   # 0.5 for TOP and 0.3 for BPR
+parser.add_argument('--dropout_input', default=0.5, type=float)   # 0.5 for TOP and 0.3 for BPR
 parser.add_argument('--dropout_hidden', default=0.5, type=float)# 0.5 for TOP and 0.3 for BPR
 parser.add_argument('--embedding_dim', default=-1, type=int, help="using embedding") #TODO:Need to tune
 # Optimizer arguments
@@ -39,10 +39,6 @@ parser.add_argument('--sigma', default=None, type=float,             # weight in
 # Loss arguments
 parser.add_argument('--loss_type', default='TOP1-max', type=str)    # type of loss function TOP1 / BPR / TOP1-max / BPR-max
 # Data arguments
-# parser.add_argument('--data_folder', default='../_data/yoochoose-prep/', type=str)
-# parser.add_argument('--train_data', default='yoochoose-train.csv', type=str)
-# parser.add_argument('--valid_data', default='yoochoose-valid.csv', type=str)
-# parser.add_argument('--test_data', default='yoochoose-test.csv', type=str)
 parser.add_argument('--data_folder', default='../_data/retailrocket-prep', type=str)
 parser.add_argument('--train_data', default='retailrocket-train.csv.sample', type=str)
 parser.add_argument('--valid_data', default='retailrocket-valid.csv.sample', type=str)

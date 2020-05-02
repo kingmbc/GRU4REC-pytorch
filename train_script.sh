@@ -13,8 +13,9 @@ dataset=$2
 loss=$3
 epoch=$4
 batch_size=$5
+embedding_dim=$6
 
-echo ${model}, ${dataset}, ${loss}, ${epoch}, ${batch_size}
+echo ${model}, ${dataset}, ${loss}, ${epoch}, ${batch_size}, ${embedding_dim}
 
 retailrocket_path="--data_folder ../_data/retailrocket-prep --train_data retailrocket-train.csv --valid_data retailrocket-valid.csv --item2idx_dict item_idx_dict_filtered.pkl"
 yoochoose_path="--data_folder ../_data/yoochoose-prep/ --train_data yoochoose-train.csv --valid_data yoochoose-valid.csv"
@@ -25,9 +26,9 @@ if [ $# == 0 ]; then
 fi
 
 if [ ${dataset} == "yoochoose" ]; then
-  python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${yoochoose_path}
+  python -u main.py --loss_type ${loss} --embedding_dim ${embedding_dim} --batch_size ${batch_size} --n_epochs ${epoch} ${yoochoose_path}
 elif [ ${dataset} == "retailrocket" ]; then
-  python -u main.py --loss_type ${loss} --batch_size ${batch_size} --n_epochs ${epoch} ${retailrocket_path}
+  python -u main.py --loss_type ${loss} --embedding_dim ${embedding_dim} --batch_size ${batch_size} --n_epochs ${epoch} ${retailrocket_path}
 
 else
     echo "(Error) There is no such model or dataset"
