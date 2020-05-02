@@ -10,7 +10,7 @@ fi
 
 cluster=$1
 models=(GRU4Rec) # (TimeRec GRU4Rec SRGNN)
-datasets=(yoochoose retailrocket) # (yoochoose retailrocket diginetica yoochoose1_4 yoochoose1_64)
+datasets=(diginetica) # (yoochoose retailrocket diginetica yoochoose1_4 yoochoose1_64)
 losses=(TOP1 BPR TOP1-max BPR-max CrossEntropy)
 n_epochs=(5)  #(5 10 20)
 batch_sizes=(32 50) # (32 50 500)
