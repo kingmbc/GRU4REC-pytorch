@@ -52,7 +52,8 @@ class GRU4REC(nn.Module):
 
         if self.embedding_dim == -1:
             embedded = self.onehot_encode(input)
-            if self.training and self.dropout_input > 0: embedded = self.embedding_dropout(embedded)
+            if self.training and self.dropout_input > 0:
+                embedded = self.embedding_dropout(embedded)
             embedded = embedded.unsqueeze(0)
         else:
             embedded = input.unsqueeze(0)
