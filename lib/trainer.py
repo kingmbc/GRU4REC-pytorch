@@ -51,6 +51,7 @@ class Trainer(object):
                            'time': time.time() - st})
                 self._log_best_result(epoch, valid_recall, valid_mrr)
                 wandb.save(model_name)
+            print("Final result: recall = {:.2f}, mrr = {:.2f}".format(valid_recall, valid_mrr))
             print("Save model as %s" % model_name)
 
     def _log_best_result(self, epoch, recall, mrr):
