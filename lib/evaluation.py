@@ -23,8 +23,14 @@ class Evaluation(object):
                 input = input.to(self.device)
                 target = target.to(self.device)
                 logit, hidden = self.model(input, hidden)
-                logit_sampled = logit[:, target.view(-1)]
-                loss = self.loss_func(logit_sampled)
+
+                if self.loss_func.loss_type == 'CrossEntropy':
+                    loss = self.loss_func(logit, target)
+                else:
+                    # output sampling
+                    logit_sampled = logit[:, target.view(-1)] #logit_sampled=(batch_size, batch_size)
+                    loss = self.loss_func(logit_sampled)
+
                 recall, mrr = lib.evaluate(logit, target, k=self.topk)
 
                 # torch.Tensor.item() to get a Python number from a tensor containing a single value

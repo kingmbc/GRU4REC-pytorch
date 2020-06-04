@@ -90,9 +90,12 @@ class Trainer(object):
             self.optim.zero_grad()
             hidden = reset_hidden(hidden, mask).detach() #hidden=(num_layer, batch_size, hidden_size)
             logit, hidden = self.model(input, hidden)
-            # output sampling
-            logit_sampled = logit[:, target.view(-1)] #logit_sampled=(batch_size, batch_size)
-            loss = self.loss_func(logit_sampled)
+            if self.args.loss_type == 'CrossEntropy':
+                loss = self.loss_func(logit, target)
+            else:
+                # output sampling
+                logit_sampled = logit[:, target.view(-1)] #logit_sampled=(batch_size, batch_size)
+                loss = self.loss_func(logit_sampled)
             losses.append(loss.item())
             loss.backward()
             self.optim.step()

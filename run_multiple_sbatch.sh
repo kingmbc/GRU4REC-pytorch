@@ -11,7 +11,7 @@ fi
 cluster=$1
 models=(GRU4Rec) # (TimeRec GRU4Rec SRGNN)
 datasets=(yoochoose retailrocket diginetica) # (yoochoose retailrocket diginetica yoochoose1_4 yoochoose1_64)
-losses=(TOP1-max BPR-max) #(TOP1 BPR TOP1-max BPR-max CrossEntropy)
+losses=(TOP1-max BPR-max) #(TOP1 BPR TOP1-max BPR-max CrossEntropy SampledCrossEntropy)
 n_epochs=(10)  #(5 10 20)
 batch_sizes=(50 64) # (32 50 500)
 embedding_dims=(-1 100 200)
